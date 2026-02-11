@@ -1,0 +1,26 @@
+import type { FeeRecord } from "../types";
+
+export const feeRecords: FeeRecord[] = [
+  { id: "FEE001", studentName: "Aarav Adhikari", grade: "10", amount: 25000, dueDate: "2026-01-15", paidDate: "2026-01-10", status: "paid", type: "tuition" },
+  { id: "FEE002", studentName: "Priya Tamang", grade: "10", amount: 25000, dueDate: "2026-01-15", paidDate: "2026-01-14", status: "paid", type: "tuition" },
+  { id: "FEE003", studentName: "Rohan Gurung", grade: "9", amount: 22000, dueDate: "2026-01-15", paidDate: null, status: "overdue", type: "tuition" },
+  { id: "FEE004", studentName: "Ananya Thapa", grade: "11", amount: 28000, dueDate: "2026-02-15", paidDate: null, status: "pending", type: "tuition" },
+  { id: "FEE005", studentName: "Karthik Shrestha", grade: "12", amount: 30000, dueDate: "2026-01-15", paidDate: "2026-01-12", status: "paid", type: "tuition" },
+  { id: "FEE006", studentName: "Meera Maharjan", grade: "8", amount: 20000, dueDate: "2026-02-15", paidDate: null, status: "pending", type: "tuition" },
+  { id: "FEE007", studentName: "Arjun Magar", grade: "11", amount: 5000, dueDate: "2026-01-10", paidDate: null, status: "overdue", type: "transport" },
+  { id: "FEE008", studentName: "Sneha Bhandari", grade: "9", amount: 22000, dueDate: "2026-01-15", paidDate: "2026-01-15", status: "paid", type: "tuition" },
+  { id: "FEE009", studentName: "Vivaan Basnet", grade: "10", amount: 3000, dueDate: "2026-01-20", paidDate: "2026-01-18", status: "paid", type: "lab" },
+  { id: "FEE010", studentName: "Ishita Karki", grade: "8", amount: 20000, dueDate: "2026-01-15", paidDate: "2026-01-13", status: "paid", type: "tuition" },
+  { id: "FEE011", studentName: "Aditya Koirala", grade: "11", amount: 2000, dueDate: "2026-02-01", paidDate: null, status: "pending", type: "library" },
+  { id: "FEE012", studentName: "Kavya Pandey", grade: "9", amount: 5000, dueDate: "2026-01-10", paidDate: "2026-01-09", status: "paid", type: "transport" },
+  { id: "FEE013", studentName: "Siddharth Lama", grade: "12", amount: 4000, dueDate: "2026-02-10", paidDate: null, status: "pending", type: "exam" },
+  { id: "FEE014", studentName: "Nisha Bhattarai", grade: "10", amount: 25000, dueDate: "2026-01-15", paidDate: null, status: "overdue", type: "tuition" },
+  { id: "FEE015", studentName: "Rahul Dahal", grade: "8", amount: 20000, dueDate: "2026-01-15", paidDate: "2026-01-11", status: "paid", type: "tuition" },
+  { id: "FEE016", studentName: "Tanvi Sapkota", grade: "11", amount: 28000, dueDate: "2026-01-15", paidDate: null, status: "overdue", type: "tuition" },
+  { id: "FEE017", studentName: "Yash Poudel", grade: "9", amount: 3000, dueDate: "2026-02-05", paidDate: "2026-02-03", status: "paid", type: "lab" },
+  { id: "FEE018", studentName: "Diya Rai", grade: "12", amount: 30000, dueDate: "2026-01-15", paidDate: "2026-01-14", status: "paid", type: "tuition" },
+  { id: "FEE019", studentName: "Aarav Adhikari", grade: "10", amount: 5000, dueDate: "2026-02-10", paidDate: null, status: "pending", type: "transport" },
+  { id: "FEE020", studentName: "Priya Tamang", grade: "10", amount: 2000, dueDate: "2026-02-01", paidDate: "2026-01-30", status: "paid", type: "library" },
+  { id: "FEE021", studentName: "Meera Maharjan", grade: "8", amount: 4000, dueDate: "2026-02-15", paidDate: null, status: "pending", type: "exam" },
+  { id: "FEE022", studentName: "Karthik Shrestha", grade: "12", amount: 5000, dueDate: "2026-02-10", paidDate: "2026-02-08", status: "paid", type: "transport" },
+];
