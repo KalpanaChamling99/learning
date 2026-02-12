@@ -1,7 +1,9 @@
 import { useState, useMemo } from "react";
-import { Calendar, MapPin, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Calendar, MapPin, Clock, ChevronLeft, ChevronRight, Plus, Pencil } from "lucide-react";
 import PageHeader from "../components/shared/PageHeader";
-import { events } from "../data/events";
+import { useData } from "../context/DataContext";
+import type { SchoolEvent } from "../types";
 
 const eventTypeColors: Record<string, string> = {
   academic: "border-l-blue-500 bg-blue-50",
@@ -21,7 +23,7 @@ const eventBadgeColors: Record<string, string> = {
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-function MiniCalendar() {
+function MiniCalendar({ events }: { events: SchoolEvent[] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const { year, month, days, eventDates } = useMemo(() => {
@@ -44,7 +46,7 @@ function MiniCalendar() {
     );
 
     return { year: y, month: m, days: allDays, eventDates: eDates };
-  }, [currentDate]);
+  }, [currentDate, events]);
 
   const prevMonth = () =>
     setCurrentDate(new Date(year, month - 1, 1));
@@ -109,6 +111,9 @@ function MiniCalendar() {
 }
 
 export default function Events() {
+  const { events } = useData();
+  const navigate = useNavigate();
+
   const sortedEvents = [...events].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -118,6 +123,15 @@ export default function Events() {
       <PageHeader
         title="Events"
         subtitle="School events and calendar"
+        action={
+          <button
+            onClick={() => navigate("/events/create")}
+            className="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700"
+          >
+            <Plus className="h-4 w-4" />
+            Add Event
+          </button>
+        }
       />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -147,6 +161,12 @@ export default function Events() {
                     {event.description}
                   </p>
                 </div>
+                <button
+                  onClick={() => navigate(`/events/${event.id}/edit`)}
+                  className="ml-2 shrink-0 rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+                >
+                  <Pencil className="h-4 w-4" />
+                </button>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
@@ -172,7 +192,7 @@ export default function Events() {
         </div>
 
         <div>
-          <MiniCalendar />
+          <MiniCalendar events={events} />
         </div>
       </div>
     </div>

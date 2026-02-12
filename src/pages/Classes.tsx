@@ -1,6 +1,7 @@
-import { Users, MapPin, Clock, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Users, MapPin, Clock, User, Plus, Pencil } from "lucide-react";
 import PageHeader from "../components/shared/PageHeader";
-import { classes } from "../data/classes";
+import { useData } from "../context/DataContext";
 
 const gradeColors: Record<string, string> = {
   "8": "border-l-blue-500",
@@ -11,11 +12,23 @@ const gradeColors: Record<string, string> = {
 };
 
 export default function Classes() {
+  const navigate = useNavigate();
+  const { classes } = useData();
+
   return (
     <div>
       <PageHeader
         title="Classes"
         subtitle="View all classes and sections"
+        action={
+          <button
+            onClick={() => navigate("/classes/create")}
+            className="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700"
+          >
+            <Plus className="h-4 w-4" />
+            Add Class
+          </button>
+        }
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -30,9 +43,18 @@ export default function Classes() {
               <h3 className="text-lg font-semibold text-gray-900">
                 {cls.name}
               </h3>
-              <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
-                {cls.id}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
+                  {cls.id}
+                </span>
+                <button
+                  onClick={() => navigate(`/classes/edit/${cls.id}`)}
+                  className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-primary-600"
+                  title="Edit class"
+                >
+                  <Pencil className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             <div className="space-y-2.5 text-sm text-gray-600">

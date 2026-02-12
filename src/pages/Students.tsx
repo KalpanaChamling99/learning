@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 import PageHeader from "../components/shared/PageHeader";
 import SearchInput from "../components/shared/SearchInput";
 import SelectFilter from "../components/shared/SelectFilter";
@@ -8,7 +8,7 @@ import DataTable from "../components/shared/DataTable";
 import Badge from "../components/shared/Badge";
 import type { Column } from "../components/shared/DataTable";
 import type { Student } from "../types";
-import { students } from "../data/students";
+import { useData } from "../context/DataContext";
 
 const statusVariant = {
   active: "success" as const,
@@ -16,48 +16,62 @@ const statusVariant = {
   graduated: "info" as const,
 };
 
-const columns: Column<Student>[] = [
-  {
-    key: "name",
-    header: "Student",
-    render: (s) => (
-      <div className="flex items-center gap-3">
-        <div
-          className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white ${s.avatarColor}`}
-        >
-          {s.name
-            .split(" ")
-            .map((n) => n[0])
-            .join("")}
-        </div>
-        <div>
-          <p className="font-medium text-gray-900">{s.name}</p>
-          <p className="text-xs text-gray-500">{s.email}</p>
-        </div>
-      </div>
-    ),
-  },
-  { key: "id", header: "ID" },
-  { key: "grade", header: "Grade" },
-  { key: "section", header: "Section" },
-  {
-    key: "status",
-    header: "Status",
-    render: (s) => (
-      <Badge
-        label={s.status.charAt(0).toUpperCase() + s.status.slice(1)}
-        variant={statusVariant[s.status]}
-      />
-    ),
-  },
-  { key: "parentName", header: "Parent" },
-  { key: "enrollmentDate", header: "Enrolled" },
-];
-
 export default function Students() {
   const navigate = useNavigate();
+  const { students } = useData();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+
+  const columns: Column<Student>[] = [
+    {
+      key: "name",
+      header: "Student",
+      render: (s) => (
+        <div className="flex items-center gap-3">
+          <div
+            className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white ${s.avatarColor}`}
+          >
+            {s.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
+          </div>
+          <div>
+            <p className="font-medium text-gray-900">{s.name}</p>
+            <p className="text-xs text-gray-500">{s.email}</p>
+          </div>
+        </div>
+      ),
+    },
+    { key: "id", header: "ID" },
+    { key: "grade", header: "Grade" },
+    { key: "section", header: "Section" },
+    {
+      key: "status",
+      header: "Status",
+      render: (s) => (
+        <Badge
+          label={s.status.charAt(0).toUpperCase() + s.status.slice(1)}
+          variant={statusVariant[s.status]}
+        />
+      ),
+    },
+    { key: "parentName", header: "Parent" },
+    { key: "enrollmentDate", header: "Enrolled" },
+    {
+      key: "actions",
+      header: "Actions",
+      render: (s) => (
+        <button
+          onClick={() => navigate(`/students/edit/${s.id}`)}
+          className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-primary-600"
+          title="Edit student"
+        >
+          <Pencil className="h-4 w-4" />
+        </button>
+      ),
+    },
+  ];
 
   const filtered = students.filter((s) => {
     const matchesSearch =
